@@ -1,0 +1,33 @@
+# Dependency directories
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+.env
+
+# Poetry
+poetry.lock
+
+# Misc
+.git
+.gitignore
+.DS_Store
+
+# Logs
+*.log
+
+# IDE specific
+.vscode
+.idea
+
+# Testing
+*.test.py
+.pytest_cache
+
+# Deployment and CI
+.github
+.circleci
