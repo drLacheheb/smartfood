@@ -1,16 +1,12 @@
-version: '3.8'
-
 services:
-  frontend:
-    build: ./nextjs
+  fontend:
+    build:
+      context: ./nextjs
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env.local
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-
-  # predictor:
-  #   build: ./predictor
-  #   ports:
-  #     - "5000:5000"
-  #   restart: unless-stopped
