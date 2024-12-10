@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./nextjs
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # predictor:
+  #   build: ./predictor
+  #   ports:
+  #     - "5000:5000"
+  #   restart: unless-stopped
