@@ -1,33 +1,12 @@
-# Use official Python runtime as base image
-FROM python:3.12-slim
+FROM python:3.8-slim-buster
 
-# Set working directory
-WORKDIR /app
+WORKDIR /python-docker
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
-# Install poetry for dependency management
-RUN pip install poetry
-
-# Copy only requirements to cache dependencies
-COPY pyproject.toml poetry.lock* ./
-
-# Configure poetry
-RUN poetry config virtualenvs.create false
-
-# Install project dependencies
-RUN poetry install --no-interaction --no-ansi
-
-# Copy the rest of the application
 COPY . .
 
-# Expose the port the app runs on
 EXPOSE 5000
 
-# Use poetry to run the application
-CMD ["poetry", "run", "flask"]
+CMD [ "python3", "-m" , "flask", "run", "-h", "0.0.0.0", "-p", "5000"]
