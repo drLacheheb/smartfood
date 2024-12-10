@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 
 export const siteConfig: Metadata = {
-  metadataBase: new URL("https://ai-project-xi.vercel.app"),
+  metadataBase: new URL("https://wajabaty.vercel.app"),
   title: {
-    default: "تحليل المكالمات باستخدام الذكاء الاصطناعي",
-    template: "%s | رؤى الذكاء الاصطناعي للمكالمات",
+    default: "وجبــاتي",
+    template: "%s | وجبــاتي",
   },
 
   manifest: "/site.webmanifest",
 
-  applicationName: "مُحلل المكالمات الذكي",
+  applicationName: "وجبــاتي",
 
-  creator: "فريق رؤى المكالمات",
+  creator: "فريق وجبــاتي",
 
   authors: [
     { name: "مطور الباكيند", url: "site.com" },
@@ -24,16 +24,16 @@ export const siteConfig: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 
   description:
-    "حوّل تسجيلات المكالمات إلى رؤى قابلة للتنفيذ باستخدام أحدث تقنيات الذكاء الاصطناعي. من التحويل إلى التحليل، قم بأتمتة إدارة مكالمات العملاء.",
+    "تأكد من التخطيط الأمثل للوجبات والاستدامة في مطعم جامعتك بقوة الذكاء الاصطناعي.",
 
   openGraph: {
-    title: "محلل المكالمات الذكي",
+    title: "وجبــاتي",
     description:
-      "حلل مكالمات العملاء باستخدام الذكاء الاصطناعي. قم برفع الملفات، تحويلها، واكتساب الرؤى باستخدام الذكاء الاصطناعي من جوجل جمني.",
+      "تأكد من التخطيط الأمثل للوجبات والاستدامة في مطعم جامعتك بقوة الذكاء الاصطناعي.",
     siteName: "رؤى الذكاء الاصطناعي للمكالمات",
     locale: "ar_SA",
-    url: new URL("https://ai-project-xi.vercel.app"),
-    images: ["https://ai-project-xi.vercel.app/og-image.png"],
+    url: new URL("https://wajabaty.vercel.app"),
+    images: ["https://wajabaty.vercel.app/og-image.png"],
     type: "website",
   },
 
