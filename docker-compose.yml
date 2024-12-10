@@ -10,3 +10,24 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
+     networks:
+      - smartfood-network
+
+  backend-api:
+    build: 
+      context: ./backend-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+    volumes:
+      - ./backend-api:/app
+    restart: unless-stopped
+    networks:
+      - smartfood-network
+
+networks:
+  smartfood-network:
+    driver: bridge
