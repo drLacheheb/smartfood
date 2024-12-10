@@ -1,0 +1,31 @@
+services:
+  fontend:
+    build:
+      context: ./nextjs
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+     networks:
+      - smartfood-network
+
+  backend-api:
+    build: 
+      context: ./backend-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+    restart: unless-stopped
+    networks:
+      - smartfood-network
+
+networks:
+  smartfood-network:
+    driver: bridge
