@@ -22,8 +22,6 @@ services:
     environment:
       - FLASK_ENV=production
       - FLASK_APP=app.py
-    volumes:
-      - ./backend-api:/app
     restart: unless-stopped
     networks:
       - smartfood-network
