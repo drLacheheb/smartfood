@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime, timedelta
 
 # Set random seed for reproducibility
-np.random.seed(42)
+# np.random.seed(42)
 
 def is_holiday(date):
     """Check if a date is a holiday."""
@@ -188,4 +188,4 @@ for i in range(1, 4):
     meals_df[f'dinner_meals_{i}days_ago'].fillna(meals_df['dinner_meals'].mean(), inplace=True)
 
 # Save to CSV file
-meals_df.to_csv('meal_counts.csv', index=False)
+meals_df.to_csv('predictor/sources/meal_counts.csv', index=False)
