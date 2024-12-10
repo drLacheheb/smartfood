@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
@@ -158,34 +159,41 @@ dates = generate_dates(start_date, end_date)
 # Generate bus ridership data
 bus_counts = generate_bus_data(dates)
 
-# Generate meal counts
-lunch_counts, dinner_counts, resident_counts = generate_meal_counts(bus_counts, dates)
+# if folder 'sources' doesn't exist, create it
+if not os.path.exists('predictor/sources'):
+    os.makedirs('predictor/sources')
 
-# Create initial DataFrame
-meals_df = pd.DataFrame({
-    'date': dates,
-    'day_of_week': dates.dayofweek,
-    'month': dates.month,
-    'bus_riders': bus_counts,
-    'resident_students': resident_counts,
-    'lunch_meals': lunch_counts,
-    'dinner_meals': dinner_counts
-})
+for period in ['lunch', 'dinner']:
+    if period == 'dinner':
+        bus_counts = bus_counts // 5
+    # Generate meal counts
+    lunch_counts, dinner_counts, resident_counts = generate_meal_counts(bus_counts, dates)
 
-# Add historical data for previous 3 days
-for i in range(1, 4):
-    # Shift bus riders
-    meals_df[f'bus_riders_{i}days_ago'] = meals_df['bus_riders'].shift(i)
-    # Shift lunch meals
-    meals_df[f'lunch_meals_{i}days_ago'] = meals_df['lunch_meals'].shift(i)
-    # Shift dinner meals
-    meals_df[f'dinner_meals_{i}days_ago'] = meals_df['dinner_meals'].shift(i)
+    # Create initial DataFrame
+    meals_df = pd.DataFrame({
+        'date': dates,
+        'day_of_week': dates.dayofweek,
+        'month': dates.month,
+        'bus_riders': bus_counts,
+        'resident_students': resident_counts,
+        'lunch_meals': lunch_counts,
+        'dinner_meals': dinner_counts
+    })
 
-# Fill NaN values for the first 3 days with the mean values
-for i in range(1, 4):
-    meals_df[f'bus_riders_{i}days_ago'].fillna(meals_df['bus_riders'].mean(), inplace=True)
-    meals_df[f'lunch_meals_{i}days_ago'].fillna(meals_df['lunch_meals'].mean(), inplace=True)
-    meals_df[f'dinner_meals_{i}days_ago'].fillna(meals_df['dinner_meals'].mean(), inplace=True)
+    # Add historical data for previous 3 days
+    for i in range(1, 4):
+        # Shift bus riders
+        meals_df[f'bus_riders_{i}days_ago'] = meals_df['bus_riders'].shift(i)
+        # Shift lunch meals
+        meals_df[f'lunch_meals_{i}days_ago'] = meals_df['lunch_meals'].shift(i)
+        # Shift dinner meals
+        meals_df[f'dinner_meals_{i}days_ago'] = meals_df['dinner_meals'].shift(i)
 
-# Save to CSV file
-meals_df.to_csv('predictor/sources/meal_counts.csv', index=False)
+    # Fill NaN values for the first 3 days with the mean values
+    for i in range(1, 4):
+        meals_df[f'bus_riders_{i}days_ago'].fillna(meals_df['bus_riders'].mean(), inplace=True)
+        meals_df[f'lunch_meals_{i}days_ago'].fillna(meals_df['lunch_meals'].mean(), inplace=True)
+        meals_df[f'dinner_meals_{i}days_ago'].fillna(meals_df['dinner_meals'].mean(), inplace=True)
+
+    # Save to CSV file
+    meals_df.to_csv(f'predictor/sources/{period}_meal_counts.csv', index=False)
