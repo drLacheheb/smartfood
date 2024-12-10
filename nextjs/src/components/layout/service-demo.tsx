@@ -9,7 +9,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Brain, CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
@@ -42,7 +41,7 @@ export default function ServiceDemos() {
     //     </pre>
     //   ),
     // });
-    console.log(data)
+    console.log(data);
   }
 
   // State variables for user input and analysis result
@@ -56,7 +55,7 @@ export default function ServiceDemos() {
   };
 
   return (
-    <section className="py-12">
+    <section className="py-12" id="demo">
       <div className="container mx-auto space-y-8 px-4">
         <h2 className="text-center text-3xl font-bold md:text-center lg:text-4xl">
           تجربة الخدمة

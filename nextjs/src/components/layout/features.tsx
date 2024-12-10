@@ -1,13 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  BrainCircuit,
   ChartBarIncreasingIcon,
-  ChartLine,
   CircleCheckBig,
   Clock2Icon,
   CookingPot,
-  Languages,
-  MicIcon,
   type LucideIcon,
 } from "lucide-react";
 

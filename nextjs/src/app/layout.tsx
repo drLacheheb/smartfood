@@ -5,10 +5,6 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 
-// import { Tajawal } from 'next/font/google'
-// const tajawal = Tajawal({ subsets: ['latin', "arabic"],
-//     weight: ["200", "300", "400", "500", "700", "800", "900"],
-//  })
 
 import { Cairo } from 'next/font/google'
 const cairo = Cairo({ subsets: ['latin', "arabic"],

@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { PhoneCall } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -45,7 +46,7 @@ const HeroSection = () => {
           <h1 className="mt-10 text-5xl font-bold tracking-tight sm:text-6xl">
             حلول
             <span className="text-primary"> الذكاء الاصطناعي </span>لتناول
-            الطعام <span className="text-primary">للطلاب</span>
+            الطلاب<span className="text-primary">{" "}للطعام</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-foreground">
             تأكد من التخطيط الأمثل للوجبات والاستدامة في مطعم جامعتك بقوة الذكاء
@@ -61,12 +62,11 @@ const HeroSection = () => {
             <Button
               className="group relative flex items-center space-x-2"
               asChild
+              variant="outline"
             >
               <Link href="/contact">
-                Contact us
-                <span className="inline-block transform transition-transform duration-200 ease-in-out group-hover:translate-x-1">
-                  →
-                </span>
+                تواصل معنا
+                <PhoneCall />
               </Link>
             </Button>
           </div>
