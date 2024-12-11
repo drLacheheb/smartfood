@@ -43,7 +43,7 @@ export default function ServiceDemos() {
       
       console.log('Submitting data:', formattedDate);
       
-      const response = await fetch('http://0.0.0.0:5000/meals/calculate', {
+      const response = await fetch('http://127.0.0.1:5000/meals/calculate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
