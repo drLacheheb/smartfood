@@ -21,7 +21,7 @@ export const siteConfig: Metadata = {
     { name: "المستشار الفني", url: "site.com" },
   ],
 
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/2.png" }],
 
   description:
     "تأكد من التخطيط الأمثل للوجبات والاستدامة في مطعم جامعتك بقوة الذكاء الاصطناعي.",

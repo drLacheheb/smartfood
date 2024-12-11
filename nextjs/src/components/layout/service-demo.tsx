@@ -43,7 +43,7 @@ export default function ServiceDemos() {
       
       console.log('Submitting data:', formattedDate);
       
-      const response = await fetch('http://localhost:5000/meals/calculate', {
+      const response = await fetch('http://0.0.0.0:5000/meals/calculate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ export default function ServiceDemos() {
                                 {field.value ? (
                                   format(field.value, "PPP")
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>اختار اليوم</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -150,7 +150,7 @@ export default function ServiceDemos() {
                   />
                   <Button type="submit" className="w-full">
                     <Brain className="mr-2 h-4 w-4" />
-                    تحليل النص
+                    توقع الوجبات
                   </Button>
                 </form>
               </Form>

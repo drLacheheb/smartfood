@@ -43,10 +43,10 @@ const HeroSection = () => {
       </div>
       <div className="mt-[-50px] flex h-screen items-center justify-center">
         <div className="max-w-full flex-shrink-0 px-4 text-center lg:mx-0 lg:max-w-3xl lg:pt-8">
-          <h1 className="mt-10 text-5xl font-bold tracking-tight sm:text-6xl">
+          <h1 className="mt-10 text-6xl md:text-lg font-bold max-lg:leading-relaxed max-lg:tracking-tight">
             حلول
-            <span className="text-primary"> الذكاء الاصطناعي </span>لتناول
-            الطلاب<span className="text-primary">{" "}للطعام</span>
+            <span className="text-primary"> الذكاء الاصطناعي </span>لترشيد
+            استهلاك الطلاب<span className="text-primary"> للطعام</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-foreground">
             تأكد من التخطيط الأمثل للوجبات والاستدامة في مطعم جامعتك بقوة الذكاء
