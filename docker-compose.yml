@@ -1,5 +1,6 @@
 services:
   fontend:
+    container_name: frontend
     build:
       context: ./nextjs
       dockerfile: Dockerfile
@@ -12,7 +13,8 @@ services:
       - smartfood-network
 
   backend-api:
-    build: 
+    container_name: backend-api
+    build:
       context: ./backend-api
       dockerfile: Dockerfile
     ports:

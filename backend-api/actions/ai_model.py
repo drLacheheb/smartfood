@@ -19,27 +19,33 @@ class AIModel:
             with open(dinner_model_path, 'rb') as dinner_file:
                 dinner_model = pickle.load(dinner_file)
             
-            # Prepare input features
+            # Load meal counts data
+            data_path = os.path.join(base_path, 'meal_counts.csv')
+            df = pd.read_csv(data_path)
             
-            # Convert day and month to numerical indices
-            day_num = day_of_week % 7
+            # Calculate averages
+            bus_riders_avg = df['bus_riders'].mean()
+            bus_riders_hist_avg = df[['bus_riders_1days_ago', 'bus_riders_2days_ago', 'bus_riders_3days_ago']].mean().mean()
+            
+            lunch_meals_hist_avg = df[['lunch_meals_1days_ago', 'lunch_meals_2days_ago', 'lunch_meals_3days_ago']].mean().mean()
+            dinner_meals_hist_avg = df[['dinner_meals_1days_ago', 'dinner_meals_2days_ago', 'dinner_meals_3days_ago']].mean().mean()
             
             # Create cyclical features for day and month
-            day_sin = np.sin(2 * np.pi * day_num / 7)
-            day_cos = np.cos(2 * np.pi * day_num / 7)
+            day_sin = np.sin(2 * np.pi * day_of_week / 7)
+            day_cos = np.cos(2 * np.pi * day_of_week / 7)
             month_sin = np.sin(2 * np.pi * month / 12)
             month_cos = np.cos(2 * np.pi * month / 12)
             
-            # Create feature vector with placeholders
+            # Create feature vector with average values
             features = [
-                # Placeholder for bus_riders (current day)
-                0,  
-                # Placeholder for bus_riders historical data
-                0, 0, 0,  
-                # Placeholder for lunch meals historical data
-                0, 0, 0,  
-                # Placeholder for dinner meals historical data
-                0, 0, 0,  
+                # Bus riders (current day) average
+                bus_riders_avg,  
+                # Bus riders historical data average
+                bus_riders_hist_avg, bus_riders_hist_avg, bus_riders_hist_avg,  
+                # Lunch meals historical data average
+                lunch_meals_hist_avg, lunch_meals_hist_avg, lunch_meals_hist_avg,  
+                # Dinner meals historical data average
+                dinner_meals_hist_avg, dinner_meals_hist_avg, dinner_meals_hist_avg,  
                 # Day and month cyclical features
                 day_sin, day_cos,
                 month_sin, month_cos

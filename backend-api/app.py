@@ -1,14 +1,25 @@
 from waitress import serve
-from flask import Flask, request
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from actions.ai_model import AIModel
 from actions.response_model import ResponseModel
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 @app.route('/meals/calculate', methods=['POST'])
 def create_record():
-    date = str(request.args.get('date'))
+    # Check if the request contains JSON data
+    if not request.is_json:
+        return jsonify({"error": "Request must be JSON"}), 400
+    
+    # Get date from JSON body
+    data = request.get_json()
+    date = data.get('date')
+    
+    if not date:
+        return jsonify({"error": "Date is required"}), 400
     
     # Parse the date
     try:
@@ -16,13 +27,12 @@ def create_record():
         day_of_week = parsed_date.strftime('%A')  # Full name of the day
         month = parsed_date.strftime('%B')  # Full name of the month
     except ValueError:
-        day_of_week = 'Invalid Date'
-        month = 'Invalid Date'
+        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
     
     lunch_counts, dinner_counts = AIModel.execute(day_of_week, month)
-    response = ResponseModel.execute(lunch_counts,dinner_counts)
+    response = ResponseModel.execute(lunch_counts, dinner_counts)
         
-    return response
+    return jsonify(response)
 
 if __name__ == '__main__':
     serve(app, host="0.0.0.0", port=5000)

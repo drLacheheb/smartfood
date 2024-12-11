@@ -32,16 +32,54 @@ export default function ServiceDemos() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      // Format date as 'YYYY-MM-DD'
+      const formattedDate = data.day.toLocaleDateString('en-CA', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+      
+      console.log('Submitting data:', formattedDate);
+      
+      const response = await fetch('http://localhost:5000/meals/calculate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: formattedDate,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Backend response:', result);
+
+      // Format the result into HTML
+      const htmlResult = `
+        <div class="meal-analysis">
+          <h2>تحليل الوجبات اليوم</h2>
+          <div class="lunch-section">
+            <p>${result.lunch} وجبة الغداء</p>
+          </div>
+          <div class="dinner-section">
+            <p>${result.dinner} وجبة العشاء</p>
+          </div>
+        </div>
+      `;
+
+      // Update state with HTML result
+      setAnalysisResult(htmlResult);
+    } catch (error) {
+      console.error('Error submitting data:', error);
+      
+      setAnalysisResult();
+    }
   }
 
   // State variables for user input and analysis result
@@ -120,7 +158,7 @@ export default function ServiceDemos() {
                 <h4 className="mb-2 text-lg font-semibold">نتيجة التحليل</h4>
                 <div className="min-h-[100px] rounded-md bg-muted p-4">
                   {analysisResult ? (
-                    <p>{analysisResult}</p>
+                    <div dangerouslySetInnerHTML={{ __html: analysisResult }} />
                   ) : (
                     <p className="text-muted-foreground">
                       ستظهر نتيجة التحليل هنا...
